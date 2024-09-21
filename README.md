@@ -1,4 +1,4 @@
-# butterfly.js
+# 🦋 butterfly.js
 
 The smallest in-memory Node.js database software in the world.
 
