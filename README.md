@@ -49,18 +49,6 @@ const { InMemoryDB, dbConnection } = require('./butterfly.js'); // Adjust path i
 })();
 ```
 
-### 2. Setting and Getting Keys
-```js
-(async () => {
-    // Setting a key-value pair in the ADDRESSES_DB
-    await db.setKey(InMemoryDB.ADDRESSES_DB, '12345', { street: 'Main St', city: 'Metropolis' });
-
-    // Retrieving the value associated with a key
-    const address = await db.getKey(InMemoryDB.ADDRESSES_DB, '12345');
-    console.log('Address:', address); // Output: { street: 'Main St', city: 'Metropolis' }
-})();
-```
-
 ### 3. Deleting a Key
 ```js
 (async () => {
