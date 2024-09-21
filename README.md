@@ -1,6 +1,6 @@
 # butterfly.js
 
-The smallest in-memory Node.js DB software in the world.
+The smallest in-memory Node.js database software in the world.
 
 ## Features
 
