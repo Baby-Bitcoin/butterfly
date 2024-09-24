@@ -8,6 +8,7 @@ class InMemoryDB {
     static INDEX_1 = 1;
     static INDEX_2 = 2;
     static INDEX_3 = 3;
+    // add more indexes if you want, and rename them to suit the purpose you are using it for. For example if you want to store basic user info, name it something like USER_DB = 0, etc.
 
     constructor() {
         if (InMemoryDB.instance) {
