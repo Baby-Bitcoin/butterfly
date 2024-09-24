@@ -1,0 +1,26 @@
+{
+  "name": "butterfly.js",
+  "version": "1.0.3",
+  "description": "The smallest in-memory Node.js database software in the world.",
+  "main": "app.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Baby-Bitcoin/butterfly.git"
+  },
+  "keywords": [
+    "in-memory",
+    "database",
+    "db",
+    "software",
+    "smallestDB"
+  ],
+  "author": "dyablohunter",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Baby-Bitcoin/butterfly/issues"
+  },
+  "homepage": "https://github.com/Baby-Bitcoin/butterfly#readme"
+}

@@ -1,10 +1,11 @@
 # 🦋 butterfly.js
 
-The smallest in-memory Node.js database software in the world.
+The smallest in-memory database software in the world.
 
 ## Features
 
-- Lightweight and fast in-memory database.
+- Lightweight and fast JSON in-memory database (2.8KB minified).
+- Works with JSON out of the box (100% JSON data structure support).
 - Persistent storage using NDJSON log files.
 - Support for multiple indexes.
 - CRUD operations and basic search capabilities.
