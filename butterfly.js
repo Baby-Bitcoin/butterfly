@@ -4,12 +4,10 @@ const readline = require('readline');
 
 class InMemoryDB {
 
-    static instances = {};
-
-    static ADDRESSES_DB = 0;
-    static POSTS_DB = 1;
-    static VOTES_DB = 2;
-    static COMMENTS_DB = 3;
+    static INDEX_0 = 0;
+    static INDEX_1 = 1;
+    static INDEX_2 = 2;
+    static INDEX_3 = 3;
 
     constructor() {
         if (InMemoryDB.instance) {
@@ -117,7 +115,7 @@ class InMemoryDB {
 
     // Helper method to convert key to the appropriate type
     convertKeyType(index, key) {
-        return index === InMemoryDB.ADDRESSES_DB ? String(key) : Number(key);
+        return index === InMemoryDB.INDEX_0 ? String(key) : Number(key);
     }
 
     /**
@@ -227,14 +225,14 @@ class InMemoryDB {
     }
 
     /**
-     * Returns the next available ID for POSTS_DB.
+     * Returns the next available ID for INDEX_1.
      * It finds the highest existing in-memory post id and returns one greater than that.
      * 
      * @returns {number} The new ID for the next post.
      */
     async getNewID() {
-        const postsIndex = InMemoryDB.POSTS_DB;
-        const allKeys = await this.getAllKeys(postsIndex);
+        const postsIndex = InMemoryDB.INDEX_1;
+        const allKeys = this.getAllKeys(postsIndex);
 
         let maxId = 0;
 
