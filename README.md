@@ -19,7 +19,6 @@ The smallest in-memory database software in the world.
 
 2. Navigate to the project directory and install dependencies:
     ```bash
-    cd butterfly-db
     npm install
     ```
 
