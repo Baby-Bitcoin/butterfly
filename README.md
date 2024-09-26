@@ -4,7 +4,7 @@ The smallest in-memory database software in the world.
 
 ## Features
 
-- Lightweight and fast JSON in-memory database (2.42KB minified).
+- Lightweight and fast JSON in-memory database (2.66KB minified).
 - Works with JSON out of the box (100% JSON data structure support).
 - Persistent storage using NDJSON log files.
 - Support for multiple indexes.
