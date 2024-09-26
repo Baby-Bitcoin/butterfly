@@ -153,11 +153,12 @@ class butterfly {
      * 
      * @param {number} index - The index (0-15) to search within.
      * @param {string} pattern - A regex pattern string to search for within the keys.
-     * @returns {string[]} An array of strings representing all keys that match the given pattern.
+     * @returns {Promise<string[]>} An array of strings representing all keys that match the given pattern.
      */
     async searchKeys(index, pattern) {
         const regex = new RegExp(pattern);
-        return this.getAllKeys(index).filter((key) => regex.test(key));
+        const allKeys = await this.getAllKeys(index); // Await the promise
+        return allKeys.filter((key) => regex.test(key)); // Now filter can be used on the resolved array
     }
 
     /**
@@ -170,8 +171,15 @@ class butterfly {
      * @param {boolean} logOperation - Whether to log the operation (defaults to true).
      */
     async setKey(index, key, value, logOperation = true) {
+        // Ensure the index exists and is properly initialized
+        if (!this.indexes[index]) {
+            this.indexes[index] = {}; // Initialize the index if not already done
+            console.log(`Initialized index ${index} as an empty object.`);
+        }
+    
         this.indexes[index][key] = value;
-        this.writeLog(index, 'set', key, logOperation);
+        console.log(`Set key '${key}' in index ${index}. Value:`, value);
+        await this.writeLog(index, 'set', key, logOperation);
     }
 
     /**
@@ -207,19 +215,23 @@ class butterfly {
     }
 
     /**
-     * Returns the next available ID for specified index DB.
-     * It finds the highest existing in-memory id and returns one greater than that.
+     * Returns the next available ID for a specified index DB.
+     * It finds the highest existing in-memory ID and returns one greater than that.
      * 
-     * @returns {number} The new ID for the next entry.
+     * @param {number} index - The index (0-15) from which to generate a new ID.
+     * @returns {Promise<number>} The new ID for the next entry.
      */
     async getNewID(index) {
-        const entryIndex = butterfly[index];
-        const allKeys = this.getAllKeys(entryIndex);
+        const allKeys = await this.getAllKeys(index); // Await the promise here
+
+        if (!Array.isArray(allKeys)) {
+            throw new Error("Expected allKeys to be an array, but got: " + typeof allKeys);
+        }
 
         let maxId = 0;
 
         for (const key of allKeys) {
-            const data = await this.getKey(entryIndex, key);
+            const data = await this.getKey(index, key);
             if (data && typeof data.id === 'number') {
                 maxId = Math.max(maxId, data.id);
             }

@@ -22,6 +22,11 @@ The smallest in-memory database software in the world.
     npm install
     ```
 
+3. Start it
+    ```bash
+    npm run start
+    ```
+
 ## Usage
 
 ### Adding and Managing Complex Objects
