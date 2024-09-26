@@ -100,7 +100,7 @@ const searchResults = await db.searchKeys(butterfly.INDEX_3, "Bluetooth");
 console.log("Search Results:", searchResults);
 ```
 
-### Searching and Filtering Data
+### Generating New IDs
 
 ```js
 // Generating a new ID for a product
