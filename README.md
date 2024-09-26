@@ -14,7 +14,7 @@ The smallest in-memory database software in the world.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/butterfly-db.git
+    git clone https://github.com/Baby-Bitcoin/butterfly.git
     ```
 
 2. Navigate to the project directory and install dependencies:
