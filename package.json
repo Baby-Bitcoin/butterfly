@@ -1,7 +1,7 @@
 {
   "name": "butterfly.js",
-  "version": "1.0.5",
-  "description": "The smallest in-memory Node.js database software in the world.",
+  "version": "2.0.0",
+  "description": "The smallest in-memory database software in the world.",
   "main": "app.js",
   "scripts": {
     "test": "start"

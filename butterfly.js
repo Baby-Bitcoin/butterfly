@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-class InMemoryDB {
+class butterfly {
 
     static INDEX_0 = 0;
     static INDEX_1 = 1;
@@ -11,8 +11,8 @@ class InMemoryDB {
     // add more indexes if you want, and rename them to suit the purpose you are using it for. For example if you want to store basic user info, name it something like USER_DB = 0, etc.
 
     constructor() {
-        if (InMemoryDB.instance) {
-            return InMemoryDB.instance;
+        if (butterfly.instance) {
+            return butterfly.instance;
         }
 
         this.indexes = new Array(16).fill(null).map(() => ({})); // 16 indexes
@@ -24,7 +24,7 @@ class InMemoryDB {
         // Initialize the DB and reconstruct from logs at startup
         this.reconstructFromLogs();
 
-        InMemoryDB.instance = this;  // Save the instance
+        butterfly.instance = this;  // Save the instance
     }
 
     /**
@@ -114,11 +114,6 @@ class InMemoryDB {
         }
     }
 
-    // Helper method to convert key to the appropriate type
-    convertKeyType(index, key) {
-        return index === InMemoryDB.INDEX_0 ? String(key) : Number(key);
-    }
-
     /**
      * Retrieves all keys stored in a specific index.
      * 
@@ -175,18 +170,6 @@ class InMemoryDB {
      * @param {boolean} logOperation - Whether to log the operation (defaults to true).
      */
     async setKey(index, key, value, logOperation = true) {
-        key = this.convertKeyType(index, key);
-
-        const existingValue = this.indexes[index][key];
-
-        if (existingValue !== undefined) {
-            if (Array.isArray(existingValue) && Array.isArray(value)) {
-                value = Array.from(new Set([...existingValue, ...value])); // Deduplicate
-            } else if (typeof existingValue === 'object' && typeof value === 'object') {
-                value = { ...existingValue, ...value };
-            }
-        }
-
         this.indexes[index][key] = value;
         this.writeLog(index, 'set', key, logOperation);
     }
@@ -199,7 +182,6 @@ class InMemoryDB {
      * @returns {*} The value associated with the key, or null if the key does not exist.
      */
     async getKey(index, key) {
-        key = this.convertKeyType(index, key);
         return this.indexes[index][key] || null;
     }
 
@@ -211,7 +193,6 @@ class InMemoryDB {
      * @param {boolean} logOperation - Whether to log the operation (defaults to true).
      */
     async deleteKey(index, key, logOperation = true) {
-        key = this.convertKeyType(index, key);
     
         // Check if the key exists before attempting deletion
         if (!this.indexes[index][key]) {
@@ -226,21 +207,21 @@ class InMemoryDB {
     }
 
     /**
-     * Returns the next available ID for INDEX_1.
-     * It finds the highest existing in-memory post id and returns one greater than that.
+     * Returns the next available ID for specified index DB.
+     * It finds the highest existing in-memory id and returns one greater than that.
      * 
-     * @returns {number} The new ID for the next post.
+     * @returns {number} The new ID for the next entry.
      */
-    async getNewID() {
-        const postsIndex = InMemoryDB.INDEX_1;
-        const allKeys = this.getAllKeys(postsIndex);
+    async getNewID(index) {
+        const entryIndex = butterfly[index];
+        const allKeys = this.getAllKeys(entryIndex);
 
         let maxId = 0;
 
         for (const key of allKeys) {
-            const postData = await this.getKey(postsIndex, key);
-            if (postData && typeof postData.id === 'number') {
-                maxId = Math.max(maxId, postData.id);
+            const data = await this.getKey(entryIndex, key);
+            if (data && typeof data.id === 'number') {
+                maxId = Math.max(maxId, data.id);
             }
         }
 
@@ -248,4 +229,4 @@ class InMemoryDB {
     }
 }
 
-module.exports = { InMemoryDB, dbConnection: new InMemoryDB() };
+module.exports = { butterfly, db: new butterfly() };
